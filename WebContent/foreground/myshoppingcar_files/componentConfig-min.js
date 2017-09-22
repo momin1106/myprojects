@@ -1,0 +1,1 @@
+define("kg/open-component/1.0.6/lib/componentConfig",[],function(n,o,e){"use strict";e.exports=[]});

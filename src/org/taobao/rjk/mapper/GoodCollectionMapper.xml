@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="org.taobao.rjk.mapper.GoodCollectionMapper">
+   <select id="getAllGoodCollection"  resultType="goodcollection">
+      select * from goods_collection
+   </select>
+  <delete id="deleteCollectionGoodBygId">
+     delete from goods_collection where gid=#{gid}
+  </delete>
+  
+  <insert id="insertGood"  >
+      insert into goods_collection(gid,uid,time,isdelete) values(#{gid},#{uid},#{time},#{isdelete})
+  </insert>
+  </mapper>

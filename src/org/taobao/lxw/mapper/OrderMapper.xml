@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.taobao.lxw.mapper.IOrderMapper">
+
+	<!-- select o.id as oid, o.time as otime,u.name as uname,a.name as
+		aname from orderform o,address a,userinfo u where o.aid = a.id and o.uid = u.id and o.id=#{id} -->
+
+	<sql id="column">
+		o.id as oid, o.time as otime,s.name as sname,u.name as uname,a.name as
+		aname
+	</sql>
+	<sql id="table">
+		orderform o,address a,userinfo u,storeinfo s
+	</sql>
+
+	<resultMap id="setOrder" type="order">
+		<id column="oid" property="id" />
+		<result column="otime" property="time" />
+		<result column="sname" property="sname" />
+		<result column="uname" property="uname" />
+		<collection column="oid" property="sList" select="getGoodByOrderId"
+			ofType="goods" javaType="java.util.ArrayList" />
+	</resultMap>
+
+	<select id="getOrderById" resultMap="setOrder">
+		select
+		<include refid="column" />
+		from
+		<include refid="table" />
+		where o.aid = a.id and o.uid = u.id and o.bid = s.uid and o.id=#{id}
+	</select>
+
+	<select id="getAllOrderById" resultMap="setOrder">
+		select
+		<include refid="column" />
+		from
+		<include refid="table" />
+		where o.aid = a.id and o.uid = u.id and o.bid = s.uid and o.bid = #{id}
+	</select>
+
+<select id="getAllOrderPageById" resultMap="setOrder">
+		select
+		<include refid="column" />
+		from
+		<include refid="table" />
+		where o.aid = a.id and o.uid = u.id and o.bid = s.uid and o.bid = #{id} limit #{pageIndex}, #{pageSize}
+	</select>
+	<select id="getGoodByOrderId" resultType="goods">
+		select g.id as id,g.sid as sid,g.name as name,g.sortid as sortid,g.price as price,o.count as count,g.time as time,g.isDelete as isDelete  from goods g,orderinfo o 
+		where o.gid = g.id and o.oid = #{id} group by o.gid;
+	</select>
+	
+	<select id ="getOrderByName" resultMap="setOrder">
+		select
+		<include refid="column" />
+		from
+		<include refid="table" />
+		where o.aid = a.id and o.uid = u.id and o.bid = s.uid and u.name like CONCAT('%',#{name},'%')
+	</select>
+	
+	<select id="getOrderCount" resultType="Integer">
+		select count(*) from orderform where bid = #{id};
+	</select>
+	
+	<select id="getAllOrderCount" resultType="Integer">
+		select count(*) from orderform;
+	</select>
+
+</mapper>

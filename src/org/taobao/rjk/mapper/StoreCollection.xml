@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="org.taobao.rjk.mapper.StoreCollectionMapper">
+   <select id="getAllStoreCollection"  resultType="storecollection">
+      select * from store_collection
+   </select>
+  <delete id="deleteCollectionStoreBysid">
+     delete from store_collection where sid=#{sid}
+  </delete>
+  
+  <insert id="insertStore"  >
+      insert into store_collection(uid,sid,time,isdelete) values(#{uid},#{sid},#{time},#{isdelete})
+  </insert>
+  </mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="org.taobao.yyj.mapper.AddressMapper">
+ 	<!-- 查询所有收货地址 -->
+ 	<select id="getAddresses" resultType="address">
+ 		select id,uname,aname,number,uid,isdefault from address where uid=#{uid}
+ 	</select>
+ 	
+ 	
+	<!-- 增加收货地址 -->
+	<insert id="addAddress">
+		insert into address(id,uname,aname,number,uid,isdefault) values(null,#{uname},#{aname},#{number},#{uid},#{isdefault})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updateAddress">
+		update address set uname=#{uname},aname=#{aname},number=#{number},isdefault=#{isdefault} where id=#{id}
+	</update>
+	
+	<!-- 删除 -->
+	
+	<delete id="deleteAddress">
+		delete from address where id=#{id}
+	</delete>
+	
+ </mapper>

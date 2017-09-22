@@ -1,0 +1,1 @@
+!function(e,a){var i=window.g_config||{},n=i.cartResult||{};e.config({packages:{"cart-result":{base:n.assetsBase||n.guiServer+"/tp/cart/"+n.version+"/result",charset:"utf-8",ignorePackageNameInUri:!0},kg:{base:"//g.alicdn.com/kg/",ignorePackageNameInUri:!0}},combine:!1}),e.use("cart-result/index",function(e,a){a.init()})}(KISSY,window);

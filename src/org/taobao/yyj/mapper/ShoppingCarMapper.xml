@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="org.taobao.yyj.mapper.ShoppingCarMapper">
+ 	<select id="getAllCar" resultType="car">
+ 		select * from shoppingcar
+ 	</select>
+	<insert id="addToCar">
+		insert into shoppingcar(uid,gid,count) values(#{uid},#{gid},#{count})
+	</insert>
+	
+	<select id="getCarById" resultType="car">
+	
+		select id,uid,gid,count from shoppingcar where id=#{id}
+	</select>
+	
+	<select id="getCount" resultType="Integer">
+		select count(*) from shoppingcar
+	</select>
+	
+	<select id="getGoodsById" resultType="goods">
+		select * from goods where id=#{gid}
+	</select>
+	
+	<select id="getCarByUid" resultMap="goodsResult">  
+			select * from shoppingcar c , goods g where c.gid=g.id  and c.uid=#{uid}  
+	</select> 
+	 
+	<resultMap type="org.taobao.yyj.bean.ShoppingCar" id="goodsResult">
+         <id property="id" column="c_id"/>
+         <result property="gid" column="c_gid"/>
+         <collection column="gid" select="getGoodsById" property="goods" javaType="java.util.ArrayList" ofType="goods">
+             <id property="id" column="g_id"/>
+             <result property="name" column="g_name"/>
+         </collection>
+     </resultMap>
+	
+ </mapper>

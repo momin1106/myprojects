@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="org.taobao.dq.mapper.NavMapper">
+  
+  <!-- 查询所有导航 -->
+  <select id="queryAllNav" resultType="navgiation">
+  		select * from navgation 
+  </select>
+    <!-- 查询所有导航 -->
+  <select id="queryNavById" resultType="navgiation">
+  		select * from navgation where id=#{id}
+  </select>
+  
+  <!-- 修改导航 -->
+  <update id="updateNav">
+  	update  navgation set name=#{name} where id=#{id}
+  </update>
+  
+  <!-- 删除导航 -->
+  <delete id="deleteNav">
+  		delete from navgation where id=#{id}
+  </delete>
+  
+  <!-- 添加导航 -->
+  <update id="addNav">
+  		insert into navgation(name,pid,address) values(#{name},#{pid},#{address})
+  </update>
+  </mapper>

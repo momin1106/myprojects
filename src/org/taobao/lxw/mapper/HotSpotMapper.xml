@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.taobao.lxw.mapper.IHotSpotMapper">
+
+	<sql id ="column">
+		main=#{main},message1=#{message1},message2=#{message2},message3=#{message3},message4=#{message4},message5=#{message5},message6=#{message6},message7=#{message7},message8=#{message8},message9=#{message9},message10=#{message10},message11=#{message11},message12=#{message12},message13=#{message13},message14=#{message14},message15=#{message15},message16=#{message16}
+	</sql>
+	<update id="updateHotSpot">
+		update hotspot set <include refid="column"/> where id=#{id}
+	</update>
+	<select id="getAllHotSpot" resultType="hotspot">
+		select * from hotspot where id limit #{pageIndex},#{pageSize}
+	</select>
+	
+	<select id="getHotSpotByName" resultType="hotspot">
+		select * from hotspot where main like CONCAT('%',#{main},'%') 
+	</select>
+	<select id="getHotSpotById" resultType="hotspot">
+		select * from hotspot where  id = #{id}
+	</select>
+	<select id="getHotSpotCount" resultType="Integer">
+		select count(*) from hotspot
+	</select>
+</mapper>

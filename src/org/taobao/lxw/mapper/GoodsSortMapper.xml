@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.taobao.lxw.mapper.IGoodsSortMapper">
+
+	<resultMap type="goods" id="getAllGoods">
+		<id property="id" column="id" />
+		<result property="sid" column="sid" />
+		<result property="name" column="name" />
+		<result property="sortid" column="sortid" />
+		<result property="price" column="price" />
+		<result property="count" column="count" />
+		<result property="pop" column="pop" />
+		<result property="sales" column="sales" />
+		<result property="time" column="time" />
+		<result property="isDelete" column="isDelete" />
+		<association property="store" javaType="store">
+			<result property="name" column="sname" />
+		</association>
+	</resultMap>
+	
+	<select id="getStoreAllSortIdByUid" resultType="goodssort">
+		select g.id as id,g.name as name from goods_sort g,storeinfo s where  s.sortid = g.ssid and s.uid = #{id}
+	</select>
+	
+	
+	<select id="GroupGoodsBySortIdAndPriceRange" resultMap="getAllGoods">
+		select g.*,s.name as sname from goods g,storeinfo s where g.sortid = #{sortid} and price between #{min} and #{max} and g.sid = s.id order by price
+	</select>
+	<select id="GroupGoodsBySortIdAndPrice" resultMap="getAllGoods">
+		select g.*,s.name as sname from goods g,storeinfo s where g.sortid = #{sortid} and g.sid = s.id order by price 
+	</select>
+	<select id="GroupGoodsBySortIdAndSales" resultMap="getAllGoods">
+		select g.*,s.name as sname from goods g,storeinfo s  where g.sortid = #{sortid} and g.sid = s.id order by sales desc
+	</select>
+	<select id="GroupGoodsBySortIdAndPop" resultMap="getAllGoods">
+		select g.*,s.name as sname from goods g,storeinfo s  where g.sortid = #{sortid} and g.sid = s.id order by pop desc
+	</select>
+	
+</mapper>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.taobao.lxw.mapper.IGoodsMapper">
+
+	<insert id="addGoods" >
+		insert into goods(sid,name,sortid,price,count,time,isDelete) values(#{sid},#{name},#{sortid},#{price},#{count},#{time},#{isDelete})
+	</insert>
+	
+	<delete id="deleteGoods">
+		delete from goods where id=#{id}
+	</delete>
+	
+	<update id="updateGoods">
+		update goods set sid=#{sid},name=#{name},sortid=#{sortid},price=#{price},count=#{count},time=#{time} where id=#{id}
+	</update>
+
+	<select id="getAllGoodsById" resultType="goods">
+		select * from goods where sid = #{id}
+	</select>
+	<select id="getAllGoodsPageById" resultType="goods">
+		select * from goods where sid = #{id} limit #{pageIndex}, #{pageSize}
+	</select>
+	
+	<select id="getGoodsByName" resultType="goods">
+		select * from goods where sid = #{id} and name like CONCAT('%',#{name},'%') 
+	</select>
+	<select id="getAllGoodsByName" resultType="goods">
+		select * from goods where name like CONCAT('%',#{name},'%') 
+	</select>
+	<select id="getGoodsById" resultType="goods">
+		select * from goods where  id = #{id}
+	</select>
+	
+	<select id="getGoodsByIdAndSid" resultType="goods">
+		select * from goods where  id = #{id} and sid=#{sid}
+	</select>
+	<select id="getStoreIdById" resultType="Integer">
+		select id from storeinfo where uid=#{id}
+	</select>
+	
+	<select id="getGoodsBySortId" resultType="goods">
+		select * from goods where  sortid = #{id}
+	</select>
+	<select id = "getAllGoodsCount" resultType="Integer">
+		select count(*) from goods;
+	</select>
+	
+	<select id="getGoodsCount" resultType="Integer">
+		select count(*) from goods where sid = #{id}
+	</select>
+	
+</mapper>

@@ -1,0 +1,1 @@
+define("kg/component-adapter/0.1.0/lib/renderKissy",[],function(e,n,r){"use strict";r.exports=function(e,n,r){var t=new n;t.render(e,r)}});

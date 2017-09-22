@@ -1,0 +1,1 @@
+(function(src){var s=document.createElement("script");s.async=1;s.src=src;var m=document.getElementsByTagName("script")[0];m.parentNode.insertBefore(s,m);})("https://gw.alipayobjects.com/os/secjs/c963eac3-e21a-4127-8c29-41bbe5679874/cashier_lightPayCashier.js");

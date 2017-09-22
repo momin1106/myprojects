@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.taobao.mapper.CountMapper">
+
+	<!-- //更新总数 <insert id="add"> insert into count(user,store,order,goods,time) 
+		values(#{user},#{store},#{order},#{goods},#{time}) </insert> -->
+
+<!-- 	//查询当前系统总数
+	<select id="query" resultType="count">
+		select * from count where time=#{time}
+	</select> -->
+
+</mapper>

@@ -1,0 +1,1 @@
+/**/ typeof jsonp85 === 'function' && jsonp85({"data":[{"bizId":43,"bizName":"爱淘宝","spm":"d4919636","url":"http://ai.taobao.com/?scm=12306.201.0.0"},{"bizId":9,"bizName":"聚划算","spm":"d4919602","url":"http://ju.taobao.com/?scm=12306.201.0.0"}]});

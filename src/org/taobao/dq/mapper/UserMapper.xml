@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.taobao.dq.mapper.UserMapper">
+
+	<!--查询所有用户  -->
+	<select id="queryAll" resultType="user">
+		select * from userInfo where hasStore=0 and isDelete=1 limit #{pageCode},
+		#{pageSize}
+	</select>
+	
+	<!--查询最新注册的用户 5 -->
+	<select id="queryNewUser" resultType="user">
+		select * from userinfo  where hasStore=0 and isDelete=1  order by time desc  limit 1,5
+	</select>
+	
+	<!--查询最新注册的商家 5  -->
+	<select id="queryNewStore" resultType="user">
+		select * from userinfo  where hasStore=1 and isDelete=1  order by time desc  limit 1,5
+	</select>
+	
+	<!--查询总用户数  -->
+	<select id="getCount" resultType="int">
+		select count(*) from userInfo where hasStore=0 and isDelete=1;
+	</select>
+	
+	<!--查询总商家数  -->
+	<select id="getBusinessCount" resultType="int">
+		select count(*) from userInfo where hasStore=1 and isDelete=1;
+	</select>
+	
+	<!-- 用户登录 -->
+	<select id="queryByNamePass" resultType="user">
+		select * from userInfo
+		where name=#{name} and pass=#{pass} and isDelete=1
+	</select>
+	<!-- 通过姓名查询 -->
+	<select id="queryByName" resultType="user">
+		select * from userInfo where name like CONCAT('%',#{name},'%') and
+		isDelete=1
+	</select>
+	<!-- 通过id查询用户 -->
+	<select id="queryById" resultType="user">
+		select * from userInfo where id=#{id} and isDelete=1
+	</select>
+	<!-- 修改用户 -->
+	<update id="modifyUser">
+		update userInfo
+		<set>
+			<if test="name!=null">name=#{name},</if>
+			<if test="pass!=null">pass=#{pass},</if>
+			<if test="pass!=null">sex=#{sex},</if>
+			<if test="birthday!=null">birthday=#{birthday},</if>
+			<if test="number!=null">number=#{number},</if>
+			<if test="level!=null">level=#{level},</if>
+			<if test="time!=null">time=#{time},</if>
+			<if test="hasStore!=null">hasStore=#{hasStore},</if>
+			<if test="isDelete!=null">isDelete=#{isDelete},</if>
+		</set>
+		where id=#{id}
+	</update>
+	<!-- 添加用户 -->
+	<insert id="addUser">
+		insert into
+		userInfo(name,pass,sex,birthday,number,level,time,hasStore,isDelete)
+		values(#{name},#{pass},#{sex},#{birthday},#{number},#{level},#{time},#{hasStore},#{isDelete})
+	</insert>
+	<!-- 删除用户 -->
+	<update id="deleteUser">
+		update userInfo set isDelete=0 where id=#{id}
+	</update>
+</mapper>

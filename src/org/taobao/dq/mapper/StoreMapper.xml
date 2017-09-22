@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.taobao.dq.mapper.StoreMapper">
+
+	<resultMap type="store" id="queryall">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="level" column="level" />
+		<result property="address" column="address" />
+		<result property="sortId" column="sortId" />
+		<result property="time" column="time" />
+		<result property="isDelete" column="isDelete" />
+		<result property="uid" column="uid" />
+		<association property="info" javaType="user">
+			<result property="name" column="uname" />
+			<result property="sex" column="sex" />
+			<result property="birthday" column="birthday" />
+			<result property="number" column="number" />
+			<result property="time" column="utime" />
+		</association>
+	</resultMap>
+	<!-- 查询所有 -->
+	<select id="queryAllStore" resultMap="queryall">
+		select s.*,u.name uname,u.sex ,u.birthday,u.number,u.time utime from
+		storeInfo s,userInfo u where u.hasStore=1 and u.isDelete=1 and
+		s.uid=u.id and s.isDelete=1 limit #{pageCode},#{pageSize}
+	</select>
+	<select id="getCount" resultType="int">
+		select count(*) from storeInfo s,userInfo u where s.uid=u.id and
+		u.hasStore=1 and u.isDelete=1 and s.isDelete=1;
+	</select>
+
+	<!-- 通过姓名查找 -->
+	<select id="queryStoreByName" resultMap="queryall">
+		select s.*,u.name
+		uname,u.sex ,u.birthday,u.number,u.time utime from storeInfo
+		s,userInfo u where s.name like CONCAT('%',#{name},'%') and s.uid=u.id
+		and u.hasStore=1 and u.isDelete=1 and s.isDelete=1
+	</select>
+
+	<!-- 通过店铺id查找 -->
+	<select id="queryStoreById" resultMap="queryall">
+		select s.*,u.name uname,u.sex ,u.birthday,u.number,u.time utime from
+		storeInfo s,userInfo u where s.id=#{id} and s.uid=u.id and
+		u.hasStore=1 and u.isDelete=1 and s.isDelete=1
+	</select>
+	<!-- 通过商家id查找 -->
+	<select id="queryStoreByUid" resultMap="queryall">
+		select s.*,u.name uname,u.sex ,u.birthday,u.number,u.time utime from
+		storeInfo s,userInfo u where u.id=#{id} and s.uid=u.id and
+		u.hasStore=1 and u.isDelete=1 and s.isDelete=1
+	</select>
+
+
+	<resultMap type="store" id="storesort">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="level" column="level" />
+		<result property="address" column="address" />
+		<result property="sortId" column="sortId" />
+		<result property="time" column="time" />
+		<result property="isDelete" column="isDelete" />
+		<result property="uid" column="uid" />
+		<association property="sort" javaType="storeSort">
+			<result property="name" column="sname" />
+		</association>
+	</resultMap>
+
+	<!--通过商家id查找店铺类别 -->
+	<select id="queryStoreSort" resultMap="storesort">
+		select s.*, o.name sname from storeInfo s,store_sort o where s.uid=#{id} and
+		s.sortId=o.id and s.isDelete=1
+	</select>
+	<!-- 修改店铺信息 -->
+	<update id="updateStore">
+		update storeInfo
+		<set>
+			<if test="name!=null">name=#{name},</if>
+			<if test="level!=null">level=#{level},</if>
+			<if test="address!=null">address=#{address},</if>
+			<if test="sortId!=null">sortId=#{sortId},</if>
+			<if test="time!=null">time=#{time},</if>
+			<if test="isDelete!=null">isDelete=#{isDelete},</if>
+			<if test="uid!=null">uid=#{uid},</if>
+		</set>
+		where id=#{id}
+	</update>
+
+	<!-- 添加店铺 -->
+	<insert id="addStore">
+		insert into addStore(name,level,address,sortId,time,isDelete,uid)
+		values(#{name},#{level},#{address},#{sortId},#{time},#{isDelete},#{uid})
+	</insert>
+
+	<!-- 删除店铺:isDelete:0代表已删除,1代表 -->
+	<update id="deleteStore">
+		update storeInfo set isDelete=0 where id=#{id}
+	</update>
+</mapper>

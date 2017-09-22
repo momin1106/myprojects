@@ -1,0 +1,1 @@
+define("kg/component-adapter/0.1.0/lib/useKissy",["kg/component-adapter/0.1.0/lib/renderKissy","kg/component-adapter/0.1.0/lib/_use"],function(e,n,t){"use strict";var o=e("kg/component-adapter/0.1.0/lib/renderKissy"),i=e("kg/component-adapter/0.1.0/lib/_use");t.exports=function(e,n,t){i(e,n,t,function(e,i){o(n,i,t)})}});
